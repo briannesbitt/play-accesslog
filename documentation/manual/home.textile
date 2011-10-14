@@ -5,3 +5,47 @@ h2. Description
 p. A Play framework module that performs request logging similar to an accesslog file in nginx or apache.
 
 p. The latest version of this module can be fetched from github : "https://github.com/briannesbitt/play-accesslog":https://github.com/briannesbitt/play-accesslog
+
+h2. Getting started
+
+p. No extra installation is required besides what is described "http://www.playframework.org/modules/accesslog":http://www.playframework.org/modules/accesslog
+
+h2. Configuration
+
+h3. File path
+
+p. You can set the path of the file.  If the path is not absolute the applicationPath is added. Defaults to "logs/access.log".
+
+@accesslog.path=logs/myAccessLog.txt@
+
+h3. Log 2 Play
+
+p. Should we also log this to the play.Logger for convenience when dev'ing?  Defaults to false.
+
+@accesslog.log2play=true@
+
+h3. POST variables
+
+p. Should we log POST parameters? If true, then they will get tacked on the end of the line.  Defaults to false.
+
+p(note). GET parameters will naturally get logged with the requested url.
+
+@accesslog.logpost=logs/myAccessLog.txt  # defaults to "logs/access.log"  @
+
+h2. Log File Format
+
+p. The log gets populated with the following format.
+
+@vhost remoteAddress - requestUser [time] "requestUrl" status bytes "referrer" "userAgent" requestTime "POST"@
+
+* vhost:          The requested virtual host
+* remoteAddress:  IP address of the client, ensure to pass that along if you are behind a reverse proxy
+* requestUser:    Userid of the person requesting the document as determined by HTTP authentication
+* time:           The server time the request was received
+* requestUrl:     The actual requested URL from the client
+* status:         Status of the response
+* bytes:          Size of the response in bytes
+* referrer:       The HTTP referrer request header
+* userAgent:      The User-Agent HTTP request header
+* requestTime:    Time for play to work on the request, in milliseconds
+* POST:           Body of post request, if configured

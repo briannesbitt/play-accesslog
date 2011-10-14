@@ -37,7 +37,7 @@ import java.util.logging.Level;
 
 public class AccessLogPlugin extends PlayPlugin
 {
-   //vhost remoteAddress - requestUser [time] "request" status bytes referrer userAgent requestTime POST
+   //vhost remoteAddress - requestUser [time] "requestUrl" status bytes "referrer" "userAgent" requestTime "POST"
    private static final String FORMAT = "%v %h - %u [%t] \"%r\" %s %b \"%ref\" \"%ua\" %rt \"%post\"";
    private static final String CONFIG_PREFIX = "accesslog.";
    private static final String DEFAULT_PATH = "logs/access.log";
