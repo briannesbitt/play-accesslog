@@ -1,0 +1,7 @@
+h1. AccessLog
+
+h2. Description
+
+p. A Play framework module that performs request logging similar to an accesslog file in nginx or apache.
+
+p. The latest version of this module can be fetched from github : "https://github.com/briannesbitt/play-accesslog":https://github.com/briannesbitt/play-accesslog
