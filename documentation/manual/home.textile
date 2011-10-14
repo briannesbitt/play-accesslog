@@ -14,13 +14,13 @@ h2. Configuration
 
 h3. File path
 
-p. You can set the path of the file.  If the path is not absolute the applicationPath is added. Defaults to "logs/access.log".
+p. You can set the path of the access log file.  If the path is not absolute the applicationPath is pre-appended. Defaults to "logs/access.log".
 
 @accesslog.path=logs/myAccessLog.txt@
 
 h3. Log 2 Play
 
-p. Should we also log this to the play.Logger for convenience when dev'ing?  Defaults to false.
+p. Should we also log this to the play.Logger for convenience when dev'ing so the requests are seen in the console?  This is done at the INFO level.  Defaults to false.
 
 @accesslog.log2play=true@
 
@@ -30,7 +30,7 @@ p. Should we log POST parameters? If true, then they will get tacked on the end 
 
 p(note). GET parameters will naturally get logged with the requested url.
 
-@accesslog.logpost=logs/myAccessLog.txt  # defaults to "logs/access.log"  @
+@accesslog.logpost=true@
 
 h2. Log File Format
 
