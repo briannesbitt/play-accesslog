@@ -16,13 +16,7 @@
 package play.modules.accesslog;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Appender;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.Priority;
-import org.apache.log4j.RollingFileAppender;
-import org.apache.log4j.spi.LoggingEvent;
 import org.jboss.netty.handler.codec.http.HttpHeaders;
-import play.Invoker;
 import play.Logger;
 import play.Play;
 import play.PlayPlugin;
@@ -32,8 +26,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.logging.Level;
 
 public class AccessLogPlugin extends PlayPlugin
 {
@@ -100,9 +92,21 @@ public class AccessLogPlugin extends PlayPlugin
 
       long requestProcessingTime = System.currentTimeMillis() - request.date.getTime();
 
-      Http.Header contentLength = response.headers.get(HttpHeaders.Names.CONTENT_LENGTH.toLowerCase());
       Http.Header referrer = request.headers.get(HttpHeaders.Names.REFERER.toLowerCase());
       Http.Header userAgent = request.headers.get(HttpHeaders.Names.USER_AGENT.toLowerCase());
+
+      String bytes = "-";
+      String status = "-";
+
+      /* It seems as though the Response.current() is only valid when the request is handled by a controller
+         Serving static files, static 404's and 500's etc don't populate the same Response.current()
+         This prevents us from getting the bytes sent and response status all of the time
+       */
+      if (request.action != null && response.out.size() > 0)
+      {
+         bytes = String.valueOf(response.out.size());
+         status = response.status.toString();
+      }
 
       String line = FORMAT;
       line = StringUtils.replaceOnce(line, "%v", request.host);
@@ -110,8 +114,8 @@ public class AccessLogPlugin extends PlayPlugin
       line = StringUtils.replaceOnce(line, "%u", (StringUtils.isEmpty(request.user)) ? "-" : request.user);
       line = StringUtils.replaceOnce(line, "%t", request.date.toString());
       line = StringUtils.replaceOnce(line, "%r", request.url);
-      line = StringUtils.replaceOnce(line, "%s", response.status.toString());
-      line = StringUtils.replaceOnce(line, "%b", (contentLength != null) ? contentLength.value() : "-");
+      line = StringUtils.replaceOnce(line, "%s", status );
+      line = StringUtils.replaceOnce(line, "%b", bytes);
       line = StringUtils.replaceOnce(line, "%ref", (referrer != null) ? referrer.value() : "");
       line = StringUtils.replaceOnce(line, "%ua", (userAgent != null) ? userAgent.value() : "");
       line = StringUtils.replaceOnce(line, "%rt", String.valueOf(requestProcessingTime));

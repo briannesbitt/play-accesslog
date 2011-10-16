@@ -26,6 +26,8 @@ p. The log gets populated with the following format.
 * requestTime:    Time it took for Play to process the request, in milliseconds
 * POST:           Body of post request, if configured
 
+p. _It seems as though the Response.current() is only valid when the request is handled by a controller.  Serving static files, static file 404's and 500's etc don't populate the same Response.current().  This prevents us from getting the bytes sent and response status code all of the time._
+
 h2. Configuration
 
 h3. File path
