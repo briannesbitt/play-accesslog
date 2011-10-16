@@ -2,13 +2,29 @@ h1. AccessLog
 
 h2. Description
 
-p. A Play framework module that performs request logging similar to an accesslog file in nginx or apache.
-
-p. The latest version of this module can be fetched from github : "https://github.com/briannesbitt/play-accesslog":https://github.com/briannesbitt/play-accesslog
+p. A Play framework module that performs request logging similar to an access log file in nginx or apache.
 
 h2. Getting started
 
-p. No extra installation is required besides what is described "http://www.playframework.org/modules/accesslog":http://www.playframework.org/modules/accesslog
+p. No extra installation is required besides what is described at "http://www.playframework.org/modules/accesslog":http://www.playframework.org/modules/accesslog
+
+h2. Log File Format
+
+p. The log gets populated with the following format.
+
+@vhost remoteAddress - requestUser [time] "requestUrl" status bytes "referrer" "userAgent" requestTime "POST"@
+
+* vhost:          The requested virtual host
+* remoteAddress:  IP address of the client, ensure to pass that along if you are behind a reverse proxy
+* requestUser:    Userid of the person requesting the document as determined by HTTP authentication
+* time:           The server time the request was received
+* requestUrl:     The actual requested URL from the client
+* status:         Status of the response
+* bytes:          Size of the response in bytes
+* referrer:       The HTTP referrer request header
+* userAgent:      The User-Agent HTTP request header
+* requestTime:    Time it took for Play to process the request, in milliseconds
+* POST:           Body of post request, if configured
 
 h2. Configuration
 
@@ -32,20 +48,8 @@ p(note). GET parameters will naturally get logged with the requested url.
 
 @accesslog.logpost=true@
 
-h2. Log File Format
+h2. Other options
 
-p. The log gets populated with the following format.
+I don't really expect this to be used for any site long term.  I think it is best used to help during dev or for a quick short term solution in other environments.
 
-@vhost remoteAddress - requestUser [time] "requestUrl" status bytes "referrer" "userAgent" requestTime "POST"@
-
-* vhost:          The requested virtual host
-* remoteAddress:  IP address of the client, ensure to pass that along if you are behind a reverse proxy
-* requestUser:    Userid of the person requesting the document as determined by HTTP authentication
-* time:           The server time the request was received
-* requestUrl:     The actual requested URL from the client
-* status:         Status of the response
-* bytes:          Size of the response in bytes
-* referrer:       The HTTP referrer request header
-* userAgent:      The User-Agent HTTP request header
-* requestTime:    Time for play to work on the request, in milliseconds
-* POST:           Body of post request, if configured
+For a longer term more feature rich solution you should use a reverse proxy like nginx and use its logging capabilities as described here: "nginx HttpLogModule":http://wiki.nginx.org/HttpLogModule
