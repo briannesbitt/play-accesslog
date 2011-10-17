@@ -50,7 +50,7 @@ p(note). GET parameters will naturally get logged with the requested url.
 
 @accesslog.logpost=true@
 
-h2. Other options
+h2. Limitations
 
 I don't really expect this to be used for any site long term.  I think it is best used to help during dev or for a quick short term solution in other environments.
 
