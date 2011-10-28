@@ -42,7 +42,7 @@ public class AccessLogPlugin extends PlayPlugin
    @Override
    public void onConfigurationRead()
    {
-      _shouldLog2Play = Boolean.parseBoolean(Play.configuration.getProperty(CONFIG_PREFIX+"log2play", "true"));
+      _shouldLog2Play = Boolean.parseBoolean(Play.configuration.getProperty(CONFIG_PREFIX+"log2play", "false"));
       _shouldLogPost = Boolean.parseBoolean(Play.configuration.getProperty(CONFIG_PREFIX+"logpost", "false"));
       _logFile = new File(Play.configuration.getProperty(CONFIG_PREFIX+"path", DEFAULT_PATH));
 
