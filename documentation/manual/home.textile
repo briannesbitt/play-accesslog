@@ -8,6 +8,8 @@ h2. Getting started
 
 p. No extra installation is required besides what is described at "http://www.playframework.org/modules/accesslog":http://www.playframework.org/modules/accesslog
 
+p. This modules only relies on @application.conf@ configuration values and requires no code changes to your current application.  However the default values are a safe bet to get you started out of the box.
+
 h2. Log File Format
 
 p. The log gets populated with the following format.
