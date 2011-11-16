@@ -66,6 +66,16 @@ public class AccessLogPlugin extends PlayPlugin
    }
    private synchronized boolean createWriter()
    {
+      if (!_logFile.exists())
+      {
+         File parent = _logFile.getParentFile();
+
+         if (parent != null)
+         {
+            parent.mkdirs();
+         }
+      }
+
       try
       {
          _writer = new PrintWriter(new FileOutputStream(_logFile, true), true);

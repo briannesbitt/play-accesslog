@@ -34,9 +34,10 @@ h2. Configuration
 
 h3. File path
 
-p. You can set the path of the access log file.  If the path is not absolute the applicationPath is pre-appended. Defaults to "logs/access.log".
+p. You can set the path of the access log file.  If the path is not absolute the applicationPath is pre-appended. If the path doesn't exist it will try to create it. Defaults to "logs/access.log".
 
 @accesslog.path=logs/myAccessLog.txt@
+@accesslog.path=c:/logs/myAccessLog.txt@    #simply use "/" on windows, or you need to escape "\" like c:\\logs\\myAccessLog.txt
 
 h3. Log 2 Play
 
