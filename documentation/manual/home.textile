@@ -1,5 +1,19 @@
 h1. AccessLog
 
+h2. Version History
+
+p. 1.2
+
+* checks for a null request and/or response.  It seems this can occur when jobs with OnApplicationStart are configured and production mode is used.
+
+p. 1.1
+
+* creates @accesslog.path@ if it doesn't already exist.
+
+p. 1.0
+
+* Initial release.
+
 h2. Description
 
 p. A Play framework module that performs request logging similar to an access log file in nginx or apache.

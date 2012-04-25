@@ -100,6 +100,11 @@ public class AccessLogPlugin extends PlayPlugin
       Http.Request request = Http.Request.current();
       Http.Response response = Http.Response.current();
 
+      if (request == null || response == null)
+      {
+         return;
+      }
+
       long requestProcessingTime = System.currentTimeMillis() - request.date.getTime();
 
       Http.Header referrer = request.headers.get(HttpHeaders.Names.REFERER.toLowerCase());
