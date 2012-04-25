@@ -130,9 +130,19 @@ public class AccessLogPlugin extends PlayPlugin
       line = StringUtils.replaceOnce(line, "%ua", (userAgent != null) ? userAgent.value() : "");
       line = StringUtils.replaceOnce(line, "%rt", String.valueOf(requestProcessingTime));
 
-      if (_shouldLogPost)
+      if (_shouldLogPost && request.method.equals("POST"))
       {
-         line = StringUtils.replaceOnce(line, "%post", request.params.get("body"));
+         String body = request.params.get("body");
+
+         if (StringUtils.isNotEmpty(body))
+         {
+            line = StringUtils.replaceOnce(line, "%post", body);
+         }
+         else
+         {
+            // leave quotes in the logged string to show it was an empty POST request
+            line = StringUtils.remove(line, "%post");
+         }
       }
       else
       {
